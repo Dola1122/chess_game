@@ -35,34 +35,36 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 64,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 8,
-            ),
-            itemBuilder: ((context, index) {
-              if (index % 8 == 0){
-                x = x == 0 ? 1 : 0 ;
-                print(index);
-              }
-              return Padding(
-                padding: const EdgeInsets.all(1.0),
-                child: Square(
-                  color: (index + x) % 2 == 0 ? Colors.black : Colors.white
-                ),
-              );
-            })),
+        child: Container(
+          color: Colors.black,
+          padding: EdgeInsets.all(2),
+          child: GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 64,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 8,
+              ),
+              itemBuilder: ((context, index) {
+                if (index % 8 == 0) {
+                  x = x == 0 ? 1 : 0;
+                }
+                return Square(
+                  color: (index + x) % 2 == 0 ? Colors.black : Colors.white,
+                  index: index,
+                );
+              })),
+        ),
       ),
     );
   }
 }
 
 class Square extends StatefulWidget {
-  const Square({super.key, required this.color});
+  const Square({super.key, required this.color, required this.index});
 
   final Color color;
+  final int index;
 
   @override
   State<Square> createState() => _SquareState();
@@ -72,12 +74,13 @@ class _SquareState extends State<Square> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        print("Taped index ${widget.index}");
+      },
       child: Stack(
         children: [
           Container(
             color: widget.color,
-            width: 100,
-            height: 100,
           ),
         ],
       ),
