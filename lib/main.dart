@@ -29,6 +29,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int x = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,8 +43,15 @@ class _HomePageState extends State<HomePage> {
               crossAxisCount: 8,
             ),
             itemBuilder: ((context, index) {
-              return Square(
-                color: index % 8 != 0 ? (index % 2 == 0 ? Colors.black : Colors.white) : (index % 2 == 0 ? Colors.black : Colors.white)
+              if (index % 8 == 0){
+                x = x == 0 ? 1 : 0 ;
+                print(index);
+              }
+              return Padding(
+                padding: const EdgeInsets.all(1.0),
+                child: Square(
+                  color: (index + x) % 2 == 0 ? Colors.black : Colors.white
+                ),
               );
             })),
       ),
