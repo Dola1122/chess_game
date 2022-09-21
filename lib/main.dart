@@ -31,14 +31,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Square(),
+    return Scaffold(
+      body: Center(
+        child: GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 64,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 8,
+            ),
+            itemBuilder: ((context, index) {
+              return Square(
+                color: index % 8 != 0 ? (index % 2 == 0 ? Colors.black : Colors.white) : (index % 2 == 0 ? Colors.black : Colors.white)
+              );
+            })),
+      ),
     );
   }
 }
 
 class Square extends StatefulWidget {
-  const Square({super.key});
+  const Square({super.key, required this.color});
+
+  final Color color;
 
   @override
   State<Square> createState() => _SquareState();
@@ -50,12 +65,10 @@ class _SquareState extends State<Square> {
     return GestureDetector(
       child: Stack(
         children: [
-          Center(
-            child: Container(
-              color: Colors.red,
-              width: 100,
-              height: 100,
-            ),
+          Container(
+            color: widget.color,
+            width: 100,
+            height: 100,
           ),
         ],
       ),
