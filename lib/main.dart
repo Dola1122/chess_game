@@ -39,6 +39,7 @@ class _HomePageState extends State<HomePage> {
           color: Colors.black,
           padding: EdgeInsets.all(2),
           child: GridView.builder(
+              padding: EdgeInsets.zero,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 64,
